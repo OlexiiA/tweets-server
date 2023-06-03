@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const TweetSchema = new mongoose.Schema(
   {
-    username: { type: String },
+    email: { type: String },
     title: { type: String, required: true },
     text: { type: String, required: true },
     imageUrl: { type: String, default: "" }, 

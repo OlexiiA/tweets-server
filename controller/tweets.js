@@ -15,7 +15,7 @@ export const createTweets = async (req, res) => {
       req.files.image.mv(path.join(__dirname, "..", "uploads", fileName));
 
       const newTweetWithImage = new Tweets({
-        username: user.username,
+        email: user.email,
         title,
         text,
         imageUrl: fileName,
@@ -30,8 +30,9 @@ export const createTweets = async (req, res) => {
       return res.json(newTweetWithImage);
     }
 
+    
     const newTweetWithoutImage = new Tweets({
-      username: user.username,
+      email: user.email,
       title,
       text,
       imageUrl: "",
@@ -147,20 +148,20 @@ export const getComments = async (req, res) => {
   }
 };
 
-export const getTweetCountHour = async (req, res) => {
-  try {
-    // const previousDay = new Date();
-    // previousDay.setDate(previousDay.getDate() - 1);
+// export const getTweetCountHour = async (req, res) => {
+//   try {
+//     // const previousDay = new Date();
+//     // previousDay.setDate(previousDay.getDate() - 1);
 
-    const tweetCountHour = await Tweets.countDocuments({
-      createdAt: {$gte: ISODate('2023-06-02'), $lt:ISODate('2023-06-03')}
-    })
+//     const tweetCountHour = await Tweets.countDocuments({
+//       createdAt: {$gte: ISODate('2023-06-02'), $lt:ISODate('2023-06-03')}
+//     })
 
-    res.json({ tweetCountHour });
-  } catch (error) {
-    console.log(error);
-    // res.status(500).json({ message: "InternalServerError" });
-  }
-};
+//     res.json({ tweetCountHour });
+//   } catch (error) {
+//     console.log(error);
+//     // res.status(500).json({ message: "InternalServerError" });
+//   }
+// };
 
 

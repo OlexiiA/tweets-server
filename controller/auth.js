@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const isUsed = await User.findOne({ username });
+    const isUsed = await User.findOne({ email });
 
     if (isUsed) {
       return res.status(402).json({
@@ -18,7 +18,7 @@ export const register = async (req, res) => {
     const hash = bcrypt.hashSync(password, salt);
 
     const newUser = new User({
-      username,
+      email,
       password: hash,
     });
 
@@ -33,7 +33,6 @@ export const register = async (req, res) => {
     await newUser.save();
 
     res.json({
-      newUser,
       token,
       message: "Registration is successful",
     });
@@ -47,18 +46,18 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
-        message: "Incorrect username or password",
+        message: "Incorrect email or password",
       });
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.status(401).json({
-        message: "Incorrect username or password",
+        message: "Incorrect email or password",
       });
     }
 
