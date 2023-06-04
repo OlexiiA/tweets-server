@@ -17,7 +17,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
 
 const corsOptions = {
-  origin: "http://localhost:5173", 
+  origin: "https://olexiia.github.io/tweets-front", 
   methods: ["GET", "POST", "PUT", "DELETE"], 
   allowedHeaders: ["Content-Type", "Authorization"], 
 };
