@@ -30,7 +30,6 @@ export const createTweets = async (req, res) => {
       return res.json(newTweetWithImage);
     }
 
-    
     const newTweetWithoutImage = new Tweets({
       email: user.email,
       title,
@@ -46,7 +45,7 @@ export const createTweets = async (req, res) => {
     return res.json(newTweetWithoutImage);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'InternalServerError' });
+    res.status(500).json({ message: "InternalServerError" });
   }
 };
 
@@ -55,13 +54,13 @@ export const getAll = async (req, res) => {
     const tweets = await Tweets.find().sort("-createdAt");
     const popularTweets = await Tweets.find().limit(5).sort("-views");
     if (!tweets) {
-      return res.json({ message: 'NotFound' });
+      return res.json({ message: "NotFound" });
     }
 
     res.json({ tweets, popularTweets });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'InternalServerError' });
+    res.status(500).json({ message: "InternalServerError" });
   }
 };
 
@@ -72,12 +71,12 @@ export const getById = async (req, res) => {
       { $inc: { views: 1 } }
     );
     if (!tweet) {
-      return res.json({ message: 'NotFound' });
+      return res.json({ message: "NotFound" });
     }
     res.json(tweet);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'InternalServerError' });
+    res.status(500).json({ message: "InternalServerError" });
   }
 };
 
@@ -92,7 +91,7 @@ export const getMyTweets = async (req, res) => {
     res.json(list);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'InternalServerError' });
+    res.status(500).json({ message: "InternalServerError" });
   }
 };
 
@@ -100,15 +99,15 @@ export const removeTweet = async (req, res) => {
   try {
     const tweet = await Tweets.findByIdAndDelete(req.params.id);
     if (!tweet) {
-      res.json({ message: 'NotFound' });
+      res.json({ message: "NotFound" });
     }
     await User.findByIdAndUpdate(req.userId, {
       $pull: { tweets: req.params.id },
     });
-    res.json({ message: 'Deletion completed' });
+    res.json({ message: "Deletion completed" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'InternalServerError' });
+    res.status(500).json({ message: "InternalServerError" });
   }
 };
 
@@ -130,7 +129,7 @@ export const updateTweet = async (req, res) => {
     res.json(tweet);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'InternalServerError' });
+    res.status(500).json({ message: "InternalServerError" });
   }
 };
 
@@ -144,24 +143,6 @@ export const getComments = async (req, res) => {
     );
     res.json(list);
   } catch (error) {
-    res.status(500).json({ message: 'InternalServerError' });
+    res.status(500).json({ message: "InternalServerError" });
   }
 };
-
-// export const getTweetCountHour = async (req, res) => {
-//   try {
-//     // const previousDay = new Date();
-//     // previousDay.setDate(previousDay.getDate() - 1);
-
-//     const tweetCountHour = await Tweets.countDocuments({
-//       createdAt: {$gte: ISODate('2023-06-02'), $lt:ISODate('2023-06-03')}
-//     })
-
-//     res.json({ tweetCountHour });
-//   } catch (error) {
-//     console.log(error);
-//     // res.status(500).json({ message: "InternalServerError" });
-//   }
-// };
-
-

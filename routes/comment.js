@@ -1,9 +1,9 @@
-import {Router} from 'express'
+import { Router } from "express";
 import { checkAuth } from "../middlewares/checkAuth.js";
-import {createComment} from '../controller/comment.js'
+import { createComment } from "../controller/comment.js";
 
-const router = new Router()
+const router = new Router();
 
-router.post('/:id', checkAuth, createComment)
+router.post("/:id", checkAuth, createComment);
 
-export default router
+export default router;

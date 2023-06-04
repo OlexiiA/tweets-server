@@ -8,7 +8,6 @@ import {
   removeTweet,
   updateTweet,
   getComments,
-  // getTweetCountHour
 } from "../controller/tweets.js";
 
 const router = new Router();
@@ -20,6 +19,5 @@ router.get("/user/me", checkAuth, getMyTweets);
 router.delete("/:id", checkAuth, removeTweet);
 router.put("/:id", checkAuth, updateTweet);
 router.get("/comments/:id", getComments);
-// router.get("/count", getTweetCountHour);
 
 export default router;
